@@ -7,142 +7,46 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button4"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:onClick="onclick"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:layout_marginBottom="62dp"
+        android:text="Tic Tac Toe game"
+        android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
-        app:layout_constraintStart_toEndOf="@+id/button3"
-        app:layout_constraintTop_toBottomOf="@+id/button1" />
-
-    <Button
-        android:id="@+id/button5"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginEnd="59dp"
-        android:onClick="onclick"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button8"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
-
-    <Button
-        android:id="@+id/button2"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginTop="292dp"
-        android:layout_marginEnd="59dp"
-        android:onClick="onclick"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button1"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginTop="292dp"
-        android:onClick="onclick"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintStart_toEndOf="@+id/button0"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button3"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="58dp"
-        android:onClick="onclick"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button0" />
-
-    <Button
-        android:id="@+id/button8"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginEnd="59dp"
-        android:onClick="onclick"
-        android:layout_marginBottom="175dp"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button7"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
-
-    <Button
-        android:id="@+id/button7"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginBottom="175dp"
-        android:onClick="onclick"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button8"
-        app:layout_constraintStart_toEndOf="@+id/button6"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
-
-    <Button
-        android:id="@+id/button0"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="292dp"
-        android:onClick="onclick"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toStartOf="@+id/button1"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button6"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginBottom="175dp"
-        android:onClick="onclick"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="250dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
+        <Button
+            android:id="@+id/vsComputeBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="vs computer" />
+
+        <Button
+            android:id="@+id/vsPlayerBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="player vs player" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
