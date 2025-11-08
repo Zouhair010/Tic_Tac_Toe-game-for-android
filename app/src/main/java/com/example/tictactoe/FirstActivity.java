@@ -19,48 +19,57 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 
-// Main activity class for the Tic-Tac-Toe game.
+/**
+ * This activity manages the Tic-Tac-Toe game logic for a player against a computer opponent.
+ */
 public class FirstActivity extends AppCompatActivity {
+    // TextViews to display the scores for the player and the computer.
     TextView playerScoursTextView;
     TextView computerScoursTestView;
     // Array to hold the 9 Button objects that represent the board.
     private Button[] board;
     // A dynamic list of lists representing potential winning lines that are still available.
-    // This is reset in the restart() method.
+    // This is used by the computer's AI and is reset in the restart() method.
     private static ArrayList<ArrayList<Integer>> availableCases = new ArrayList<>()
     {{
-        add(new ArrayList<>(Arrays.asList(0, 1, 2))); // Top row
-        add(new ArrayList<>(Arrays.asList(3, 4, 5))); // Middle row
-        add(new ArrayList<>(Arrays.asList(6, 7, 8))); // Bottom row
-        add(new ArrayList<>(Arrays.asList(0, 3, 6))); // Left column
-        add(new ArrayList<>(Arrays.asList(1, 4, 7))); // Middle column
-        add(new ArrayList<>(Arrays.asList(2, 5, 8))); // Right column
-        add(new ArrayList<>(Arrays.asList(0, 4, 8))); // Diagonal (top-left to bottom-right)
-        add(new ArrayList<>(Arrays.asList(2, 4, 6))); // Diagonal (top-right to bottom-left)
+        add(new ArrayList<>(Arrays.asList(0, 1, 2))); // Row 1
+        add(new ArrayList<>(Arrays.asList(3, 4, 5))); // Row 2
+        add(new ArrayList<>(Arrays.asList(6, 7, 8))); // Row 3
+        add(new ArrayList<>(Arrays.asList(0, 3, 6))); // Column 1
+        add(new ArrayList<>(Arrays.asList(1, 4, 7))); // Column 2
+        add(new ArrayList<>(Arrays.asList(2, 5, 8))); // Column 3
+        add(new ArrayList<>(Arrays.asList(0, 4, 8))); // Diagonal 1
+        add(new ArrayList<>(Arrays.asList(2, 4, 6))); // Diagonal 2
     }};
-    // A list of all possible positions on the board (0-8). Used primarily for draw check.
+    // A list of all possible positions on the board (0-8). Used for checking for a draw.
     final static ArrayList<Integer> allPositions = new ArrayList<>(){{
         add(0);add(1);add(2);
         add(3);add(4);add(5);
         add(6);add(7);add(8);
     }};
-    // Stores the board indices (positions) taken by the computer ('O').
+    // Stores the board indices (positions) occupied by the computer ('O').
     private static ArrayList<Integer> computeMoves = new ArrayList<>();
-    // Stores the board indices (positions) taken by the player ('X').
+    // Stores the board indices (positions) occupied by the player ('X').
     private static ArrayList<Integer> playerMoves = new ArrayList<>();
-    // Stores all moves made by both player and computer.
+    // Stores all moves made by both the player and the computer to track game progress.
     private static ArrayList<Integer> totalMoves = new ArrayList<>();
     // Flag to indicate if the game has ended (win or draw).
     private static boolean gameOver = false;
     // A static array of arrays defining all possible winning combinations by board index.
     final private static int[][] winCases = {
+            // Rows
             {0,1,2},{3,4,5},{6,7,8},
+            // Columns
             {0,3,6},{1,4,7},{2,5,8},
+            // Diagonals
             {0,4,8},{2,4,6}
     };
+    // Constants for player and computer symbols.
     private static String playerSymbol = "X";
     private static String computerSymbol = "O";
+    // A string to keep track of the current player's turn. It starts with the player.
     private static String turn = playerSymbol;
+    // Static variables to hold the scores for the player and computer across rounds.
     private static int playerScours = 0;
     private static int computerScours = 0;
 
@@ -82,7 +91,7 @@ public class FirstActivity extends AppCompatActivity {
 
     /**
      * Checks if all elements of arrList2 are present in arrList1.
-     * Used mainly to check for a draw (if allPositions are in totalMoves).
+     * Used to check for a draw by seeing if all board positions are in totalMoves.
      * @param arrList1 The list to check for the presence of elements.
      * @param arrList2 The list containing the elements to check.
      * @return true if all elements in arrList2 are present in arrList1, false otherwise.
@@ -110,12 +119,13 @@ public class FirstActivity extends AppCompatActivity {
     private void checkWiner(char symbol){
         int counter = 0;
 
-        // Check for a draw (all positions filled).
+        // First, check for a draw condition (all positions are filled).
         if (in(totalMoves,allPositions)){
             // If it's a draw, set all buttons to blue and end the game.
             for (Button button : board){
                 button.setBackgroundColor(Color.parseColor("#0000FF")); // Blue for Draw
             }
+            // Set the game over flag and show a toast message.
             gameOver = true;
             Toast.makeText(this,"It's a draw!!",Toast.LENGTH_LONG).show();
             return;
@@ -126,7 +136,7 @@ public class FirstActivity extends AppCompatActivity {
             // Iterate through all possible winning cases.
             for (int[] cs : winCases) {
                 counter = 0;
-                // Count how many spots in the current winning line are held by 'X'.
+                // Count how many positions in the current winning line are held by the player.
                 for (int pos : cs) {
                     if (in(playerMoves, pos)){
                         counter++;
@@ -142,6 +152,7 @@ public class FirstActivity extends AppCompatActivity {
                     for (Button button : board){
                         button.setEnabled(false);
                     }
+                    // Set the game over flag, show a toast, and update the player's score.
                     gameOver = true;
                     Toast.makeText(this,"Good job!! you win",Toast.LENGTH_LONG).show();
                     playerScours++;
@@ -157,7 +168,7 @@ public class FirstActivity extends AppCompatActivity {
             // Iterate through all possible winning cases.
             for (int[] cs : winCases) {
                 counter = 0;
-                // Count how many spots in the current winning line are held by 'O'.
+                // Count how many positions in the current winning line are held by the computer.
                 for (int pos : cs) {
                     if (in(computeMoves, pos)){
                         counter++;
@@ -173,6 +184,7 @@ public class FirstActivity extends AppCompatActivity {
                     for (Button button : board){
                         button.setEnabled(false);
                     }
+                    // Set the game over flag, show a toast, and update the computer's score.
                     gameOver = true;
                     Toast.makeText(this,"you lose!!",Toast.LENGTH_LONG).show();
                     computerScours++;
@@ -187,10 +199,12 @@ public class FirstActivity extends AppCompatActivity {
 
     /**
      * Updates the UI for a move: sets the button text and disables it.
+     * Also changes the button color based on whose turn it is.
      * @param button The Button object that was chosen.
      * @param symbol The symbol ('X' or 'O') to display.
      */
     private void move(Button button, String symbol){
+        // Change button color and switch the turn.
         if (turn.equals(playerSymbol)){
             button.setBackgroundColor(Color.parseColor("#F26CE6"));
             turn = computerSymbol;
@@ -199,6 +213,7 @@ public class FirstActivity extends AppCompatActivity {
             button.setBackgroundColor(Color.parseColor("#4676FB"));
             turn = playerSymbol;
         }
+        // Set the symbol on the button and disable it.
         button.setText(symbol);
         button.setEnabled(false);
     }
@@ -225,13 +240,13 @@ public class FirstActivity extends AppCompatActivity {
         String buttonText = button.getText().toString(); // Not used
         int choice = getIndex(button);
 
-        // Check if the spot is already taken (redundant if UI is correct, but safe) or if the game is over.
+        // Prevent move if the spot is taken or the game is over.
         if(in(computeMoves,choice) || buttonText.length() > 0 || gameOver){return;}
 
         playerMoves.add(choice);
         totalMoves.add(choice);
 
-        // Remove the chosen position from the available winning paths (part of AI's logic).
+        // Update the AI's list of available winning paths by removing the player's move.
         for (ArrayList<Integer> cs : availableCases) {
             if(in(cs,choice)){
                 cs.remove(Integer.valueOf(choice));
@@ -239,22 +254,22 @@ public class FirstActivity extends AppCompatActivity {
         }
         move(button, "X");
         checkWiner('X'); // Check if the player won.
-        computerMove(); // Start the computer's turn.
     }
 
     /**
      * Handles the computer's turn with basic AI logic.
      */
     private void computerMove(){
+        // Do not make a move if the game is already over.
         if (gameOver){return;}
         int maxLigth = 3;
         Integer computeChoice = null;
 
-        // AI Logic Part 1: Find a move in the shortest available winning path (prioritizes offense/blocking).
+        // AI Logic Part 1: Find a move in the shortest available winning path to block or advance.
         for (ArrayList<Integer> cs : availableCases) {
             if(0 < cs.size() && cs.size() <= maxLigth){
                 for (int i : cs){
-                    // Check that the spot is not already taken by the computer ('O').
+                    // Check that the spot is not already taken by the computer.
                     if ( !in(computeMoves, i) ){
                         maxLigth=cs.size(); // Update maxLigth to prioritize shorter paths
                         computeChoice=i;
@@ -263,18 +278,18 @@ public class FirstActivity extends AppCompatActivity {
             }
         }
 
-        // AI Logic Part 2: Check if the computer can win in this turn (highest priority offensive check).
+        // AI Logic Part 2: Check if the computer can win in this turn (highest priority).
         for (int[] cs : winCases) {
             int counter=0;
             for (int i : cs) {
                 if (in(computeMoves,i)){
-                    counter++; // Count 'O' marks in this winning line.
+                    counter++; // Count computer's marks in this winning line.
                 }
             }
             // If two spots in a winning line are taken by the computer, take the third one if it's free.
             if (counter==2){
                 for (int it : cs) {
-                    // Check if the third spot is not taken by 'O' or 'X'.
+                    // Check if the third spot is not taken by either player.
                     if(!in(computeMoves,it) && !in(playerMoves,it)){
                         computeChoice=it; // This move guarantees a win.
                         break; // Found a winning move, break inner loop.
@@ -283,12 +298,12 @@ public class FirstActivity extends AppCompatActivity {
             }
         }
 
-        // AI Logic Part 3: Prioritize taking the center square if available (standard Tic-Tac-Toe strategy).
+        // AI Logic Part 3: Prioritize taking the center square if available (a good strategic move).
         if (!in(playerMoves,4) && !in(computeMoves,4)){
             computeChoice = 4; // Center square index.
         }
 
-        // Execute the chosen move.
+        // Execute the chosen move if a valid choice was found.
         // Needs a null check for computeChoice in case no valid move was found (shouldn't happen in a non-full board)
         if (computeChoice != null) {
             computeMoves.add(computeChoice);
@@ -309,7 +324,7 @@ public class FirstActivity extends AppCompatActivity {
             button.setEnabled(true); // Re-enable the button
         }
 
-        // Reset the availableCases list to its initial state (all 8 winning paths).
+        // Reset the availableCases list to its initial state (all 8 winning combinations).
         availableCases = new ArrayList<>()
         {{
             add(new ArrayList<>(Arrays.asList(0, 1, 2)));
@@ -332,8 +347,7 @@ public class FirstActivity extends AppCompatActivity {
     }
 
     /**
-     * A common click handler method for all board buttons, typically referenced
-     * from the XML layout's android:onClick attribute (if the individual listeners were removed).
+     * A common click handler method for all board buttons, referenced from the XML layout.
      * @param v The View (Button) that was clicked.
      */
     public void onclick(View v){
@@ -341,6 +355,7 @@ public class FirstActivity extends AppCompatActivity {
         Button button = (Button) v;
         // Pass the clicked button to the player move logic.
         playerMove(button);
+        computerMove(); // Immediately trigger the computer's turn.
     }
 
     // --- Android Lifecycle Methods ---
@@ -359,6 +374,7 @@ public class FirstActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Initialize TextViews for displaying scores.
         playerScoursTextView = findViewById(R.id.playerScourTextView);
         computerScoursTestView = findViewById(R.id.computerScourTextView);
 
@@ -372,18 +388,16 @@ public class FirstActivity extends AppCompatActivity {
         // Set up OnClickListener for the restart button.
         findViewById(R.id.restarBtn).setOnClickListener(v-> {restart();});
 
+        // Set up OnClickListener for the back button.
         findViewById(R.id.backBtn).setOnClickListener(v -> {
+            // Restart the game state before navigating back to the main menu.
+            restart();
             Intent intent = new Intent(FirstActivity.this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             finish();
         });
 
-        // Note: The previous individual click listeners for buttons (button0 to button8)
-        // have been replaced, likely with the single 'onclick' method being referenced
-        // in the layout XML of the 9 board buttons.
-
-        // code version addresses the incomplete nature of the first by adding a functional game reset and
-        // optimizing the event handling for the 9 board buttons.
+        // Note: The 'onclick' method is linked to each board button via the 'android:onClick' attribute in the layout XML file.
     }
 }

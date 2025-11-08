@@ -18,31 +18,42 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SecondActivity extends AppCompatActivity {
+    // TextViews to display the scores for Player 1 and Player 2.
     TextView player1ScoursTextView;
     TextView player2ScoursTextView;
 
-    // Array to hold the 9 Button objects that represent the board.
+    // An array of Button objects representing the 9 cells of the Tic-Tac-Toe board.
     private Button[] board;
+    // A list of available (empty) cells on the board, identified by their index (0-8).
     private static ArrayList<Integer> availableCases =  new ArrayList<>(){{
         add(0);add(1);add(2);
         add(3);add(4);add(5);
         add(6);add(7);add(8);
     }};
+    // A 2D array defining all possible winning combinations (rows, columns, and diagonals).
     final private static int[][] winCases = {
+            // Rows
             {0,1,2},{3,4,5},{6,7,8},
+            // Columns
             {0,3,6},{1,4,7},{2,5,8}
+            // Diagonals
             ,{0,4,8},{2,4,6}
     };
+    // Lists to store the moves made by Player 1 and Player 2, respectively.
     private static ArrayList<Integer> player1Moves = new ArrayList<>();
     private static ArrayList<Integer> player2Moves = new ArrayList<>();
+    // Constants for player symbols.
     final static String player1Symbol = "X";
     final static String player2Symbol = "O";
+    // A string to keep track of the current player's turn. It starts with Player 1.
     private static String turn = player1Symbol;
+    // Static variables to hold the scores for Player 1 and Player 2 across rounds.
     private static int player1Scours = 0;
     private static int player2Scours = 0;
 
     /**
      * Checks if a single integer item is present in a given ArrayList of integers.
+     * This is a helper method for checking player moves against winning combinations.
      * @param arr The ArrayList to search within.
      * @param item The integer to search for.
      * @return true if the item is found, false otherwise.
@@ -55,8 +66,14 @@ public class SecondActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    /**
+     * Gets the index (0-8) of a button on the board.
+     * @param button The button whose index is to be found.
+     * @return The index of the button, or -1 if not found.
+     */
     private int getIndex(Button button){
-        for (int i=0 ; i<board.length ; i++) {
+        for (int i = 0; i < board.length; i++) {
             if (board[i] == button){
                 return i;
             }
@@ -64,15 +81,17 @@ public class SecondActivity extends AppCompatActivity {
         return -1;
     }
     /**
-     * Checks for a win condition or a draw.
+     * Checks for a win condition or a draw after each move.
+     * @param playerMoves The list of moves made by the current player.
      * @param symbol The symbol ('X' or 'O') of the player whose win is being checked.
      */
     private void checkWiner(ArrayList<Integer> playerMoves, String symbol){
         int counter = 0;
         // Iterate through all possible winning cases.
         for (int[] cs : winCases) {
-            counter = 0;
+            counter = 0; // Reset counter for each winning case.
             for (int pos : cs) {
+                // Check if the player's moves include a position from the current winning case.
                 if (in(playerMoves, pos)){
                     counter++;
                 }
@@ -87,14 +106,16 @@ public class SecondActivity extends AppCompatActivity {
                 for (Button button : board){
                     button.setEnabled(false);
                 }
+                // Show a toast message announcing the winner.
                 Toast.makeText(this,"the winer is: "+symbol,Toast.LENGTH_LONG).show();
+                // Update the score for the winning player.
                 if (symbol.equals(player1Symbol)){
                     player1Scours++;
                     runOnUiThread(() -> player1ScoursTextView.setText(
                             "player 1 (\"X\") Scour: 0"+player1Scours
                     ));
                 }
-                else {
+                else { // Player 2 wins.
                     player2Scours++;
                     runOnUiThread(() -> player2ScoursTextView.setText(
                             "player 2 (\"O\") Scour: 0"+player2Scours
@@ -103,28 +124,41 @@ public class SecondActivity extends AppCompatActivity {
                 return; // Exit after a win is found.
             }
         }
-        // Check for a draw (all positions filled).
-        if (availableCases.size()<1){
-            // If it's a draw, set all buttons to blue and end the game.
+        // If no winner is found, check for a draw (i.e., all cells are filled).
+        if (availableCases.size() == 0){
+            // If it's a draw, highlight all buttons in blue.
             for (Button button : board){
                 button.setBackgroundColor(Color.parseColor("#0000FF")); // Blue for Draw
             }
+            // Show a toast message for the draw.
             Toast.makeText(this,"it's a draw!",Toast.LENGTH_LONG).show();
             return;
         }
     }
+
+    /**
+     * Handles the logic for a player's move.
+     * @param button The button that was clicked.
+     */
     public void move(Button button){
+        // Determine which player's turn it is.
         if (turn.equals(player1Symbol)){
+            // Player 1's move.
             player1Moves.add(getIndex(button));
+            availableCases.remove(Integer.valueOf(getIndex(button)));
             button.setText(turn);
             button.setBackgroundColor(Color.parseColor("#4676FB"));
+            // Check for a winner after the move.
             checkWiner(player1Moves,turn);
-            turn = player2Symbol;
+            turn = player2Symbol; // Switch turn to Player 2.
         }
         else {
+            // Player 2's move.
             player2Moves.add(getIndex(button));
+            availableCases.remove(Integer.valueOf(getIndex(button)));
             button.setText(turn);
             button.setBackgroundColor(Color.parseColor("#F26CE6"));
+            // Check for a winner after the move.
             checkWiner(player2Moves,turn);
             turn = player1Symbol;
         }
@@ -141,7 +175,7 @@ public class SecondActivity extends AppCompatActivity {
             button.setEnabled(true); // Re-enable the button
         }
 
-        // Reset the availableCases list to its initial state (all 8 winning paths).
+        // Reset the availableCases list to its initial state (all 9 cells available).
         availableCases =  new ArrayList<>(){{
             add(0);add(1);add(2);
             add(3);add(4);add(5);
@@ -150,9 +184,14 @@ public class SecondActivity extends AppCompatActivity {
         // Clear all move tracking lists.
         player1Moves = new ArrayList<>();
         player2Moves = new ArrayList<>();
+        // Reset the turn to Player 1.
         turn = player1Symbol;
     }
 
+    /**
+     * Handles the click event for the game board buttons.
+     * @param v The View that was clicked (a Button).
+     */
     private void onpress(View v){
         Button button = (Button) v;
         move(button);
@@ -173,6 +212,7 @@ public class SecondActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Initialize TextViews for displaying scores.
         player1ScoursTextView = findViewById(R.id.player1ScourTextView);
         player2ScoursTextView = findViewById(R.id.player2ScourTextView);
 
@@ -183,15 +223,20 @@ public class SecondActivity extends AppCompatActivity {
                 findViewById(R.id.button06), findViewById(R.id.button07), findViewById(R.id.button08)
         };
 
+        // Set a click listener for each button on the board.
         for (Button button : board){
             button.setOnClickListener(v -> {onpress(v);});
         }
 
+        // Set a click listener for the "Restart" button.
         findViewById(R.id.restarBtn2).setOnClickListener(v -> {
             restart();
         });
 
+        // Set a click listener for the "Back" button.
         findViewById(R.id.backBtn2).setOnClickListener(v -> {
+            // Restart the game state before going back to the main menu.
+            restart();
             Intent intent = new Intent(SecondActivity.this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
