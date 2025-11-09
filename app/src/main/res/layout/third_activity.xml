@@ -2,53 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/second"
+    android:id="@+id/third"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C2FDD0F3"
-    tools:context=".SecondActivity">
-
-    <TextView
-        android:id="@+id/player2ScourTextView"
-        android:layout_width="336dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="4dp"
-        android:textAlignment="textStart"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player1ScourTextView" />
-
-    <TextView
-        android:id="@+id/player1ScourTextView"
-        android:layout_width="336dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="50dp"
-        android:textAlignment="textStart"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ThirdActivity">
 
     <Button
-        android:id="@+id/button06"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/button07"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button03" />
-
-    <Button
-        android:id="@+id/button04"
+        android:id="@+id/button004"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
         android:layout_width="98dp"
         android:layout_height="98dp"
@@ -56,63 +17,65 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
+        android:onClick="onclick"
         android:textColor="@color/black"
         android:textColorLink="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button07"
-        app:layout_constraintEnd_toStartOf="@+id/button05"
-        app:layout_constraintStart_toEndOf="@+id/button03"
-        app:layout_constraintTop_toBottomOf="@+id/button01" />
+        app:layout_constraintBottom_toTopOf="@+id/button007"
+        app:layout_constraintEnd_toStartOf="@+id/button005"
+        app:layout_constraintStart_toEndOf="@+id/button003"
+        app:layout_constraintTop_toBottomOf="@+id/button001" />
 
     <Button
-        android:id="@+id/button08"
+        android:id="@+id/button007"
+        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        android:onClick="onclick"
+        android:textColor="@color/black"
+        android:textColorLink="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/button008"
+        app:layout_constraintStart_toEndOf="@+id/button006"
+        app:layout_constraintTop_toBottomOf="@+id/button004" />
+
+    <Button
+        android:id="@+id/button006"
+        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        android:onClick="onclick"
+        android:textColor="@color/black"
+        android:textColorLink="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/button007"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button003" />
+
+    <Button
+        android:id="@+id/button008"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
         android:layout_width="98dp"
         android:layout_height="98dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="59dp"
+        android:onClick="onclick"
         android:textColor="@color/black"
         android:textColorLink="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button07"
-        app:layout_constraintTop_toBottomOf="@+id/button05" />
+        app:layout_constraintStart_toEndOf="@+id/button007"
+        app:layout_constraintTop_toBottomOf="@+id/button005" />
 
     <Button
-        android:id="@+id/button07"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/button08"
-        app:layout_constraintStart_toEndOf="@+id/button06"
-        app:layout_constraintTop_toBottomOf="@+id/button04" />
-
-    <Button
-        android:id="@+id/button03"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="98dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button06"
-        app:layout_constraintEnd_toStartOf="@+id/button04"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button00" />
-
-    <Button
-        android:id="@+id/button05"
+        android:id="@+id/button005"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
         android:layout_width="98dp"
         android:layout_height="98dp"
@@ -120,33 +83,35 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="59dp"
         android:layout_marginBottom="2dp"
+        android:onClick="onclick"
         android:textColor="@color/black"
         android:textColorLink="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/button008"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button04"
-        app:layout_constraintTop_toBottomOf="@+id/button02" />
+        app:layout_constraintStart_toEndOf="@+id/button004"
+        app:layout_constraintTop_toBottomOf="@+id/button002" />
 
     <Button
-        android:id="@+id/button00"
+        android:id="@+id/button003"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
         android:layout_width="98dp"
         android:layout_height="98dp"
         android:layout_marginStart="58dp"
-        android:layout_marginTop="310dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
+        android:onClick="onclick"
         android:textColor="@color/black"
         android:textColorLink="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toStartOf="@+id/button01"
+        app:layout_constraintBottom_toTopOf="@+id/button006"
+        app:layout_constraintEnd_toStartOf="@+id/button004"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/button000" />
 
     <Button
-        android:id="@+id/button01"
+        android:id="@+id/button001"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
         android:layout_width="98dp"
         android:layout_height="98dp"
@@ -154,16 +119,35 @@
         android:layout_marginTop="310dp"
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
+        android:onClick="onclick"
         android:textColor="@color/black"
         android:textColorLink="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toStartOf="@+id/button02"
-        app:layout_constraintStart_toEndOf="@+id/button00"
+        app:layout_constraintBottom_toTopOf="@+id/button004"
+        app:layout_constraintEnd_toStartOf="@+id/button002"
+        app:layout_constraintStart_toEndOf="@+id/button000"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button02"
+        android:id="@+id/button000"
+        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="310dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:onClick="onclick"
+        android:textColor="@color/black"
+        android:textColorLink="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/button003"
+        app:layout_constraintEnd_toStartOf="@+id/button001"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button002"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
         android:layout_width="98dp"
         android:layout_height="98dp"
@@ -171,35 +155,17 @@
         android:layout_marginTop="310dp"
         android:layout_marginEnd="59dp"
         android:layout_marginBottom="2dp"
+        android:onClick="onclick"
         android:textColor="@color/black"
         android:textColorLink="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/button005"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button01"
+        app:layout_constraintStart_toEndOf="@+id/button001"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/restarBtn2"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
-        android:layout_width="140dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="213dp"
-        android:layout_marginBottom="12dp"
-        android:text="Restart"
-        android:textColor="@color/black"
-        android:textColorLink="@color/black"
-        android:textSize="18sp"
-        app:icon="@android:drawable/ic_popup_sync"
-        app:layout_constraintBottom_toTopOf="@+id/button00"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backBtn2" />
-
-    <Button
-        android:id="@+id/backBtn2"
+        android:id="@+id/backBtn3"
         style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
         android:layout_width="140dp"
         android:layout_height="47dp"
@@ -212,9 +178,51 @@
         android:textColorLink="@color/black"
         android:textSize="18sp"
         app:icon="@android:drawable/ic_menu_revert"
-        app:layout_constraintBottom_toTopOf="@+id/restarBtn2"
+        app:layout_constraintBottom_toTopOf="@+id/restarBtn3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player2ScourTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/computerScourTextView2" />
 
+    <Button
+        android:id="@+id/restarBtn3"
+        style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Secondary"
+        android:layout_width="140dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="213dp"
+        android:layout_marginBottom="12dp"
+        android:text="Restart"
+        android:textColor="@color/black"
+        android:textColorLink="@color/black"
+        android:textSize="18sp"
+        app:icon="@android:drawable/ic_popup_sync"
+        app:layout_constraintBottom_toTopOf="@+id/button001"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backBtn3" />
+
+    <TextView
+        android:id="@+id/playerScourTextView2"
+        android:layout_width="336dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="52dp"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/computerScourTextView2"
+        android:layout_width="336dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="4dp"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerScourTextView2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

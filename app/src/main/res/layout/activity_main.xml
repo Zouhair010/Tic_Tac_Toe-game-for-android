@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E169CEDC"
+    android:background="#C2FDD0F3"
     tools:context=".MainActivity">
 
     <TextView
@@ -37,14 +37,21 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <Button
-            android:id="@+id/vsComputeBtn"
+            android:id="@+id/vsComputeHardLevelBtn"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="vs computer" />
+            android:text="vs computer (easy)" />
 
         <Button
-            android:id="@+id/vsPlayerBtn"
+            android:id="@+id/vsComputeEasyLevelBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="vs computer (hard)" />
+
+        <Button
+            android:id="@+id/playerVsPlayerModeBtn"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

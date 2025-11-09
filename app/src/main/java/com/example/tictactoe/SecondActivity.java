@@ -99,9 +99,9 @@ public class SecondActivity extends AppCompatActivity {
             // If the player holds all 3 positions, they win.
             if(counter==3){
                 // Highlight the winning buttons in green.
-                board[cs[0]].setBackgroundColor(Color.parseColor("#00FF00"));
-                board[cs[1]].setBackgroundColor(Color.parseColor("#00FF00"));
-                board[cs[2]].setBackgroundColor(Color.parseColor("#00FF00"));
+                for (int index : cs){
+                    board[index].setBackgroundColor(Color.parseColor("#00FF00"));
+                }
                 // Disable all buttons to stop the game.
                 for (Button button : board){
                     button.setEnabled(false);
@@ -112,13 +112,13 @@ public class SecondActivity extends AppCompatActivity {
                 if (symbol.equals(player1Symbol)){
                     player1Scours++;
                     runOnUiThread(() -> player1ScoursTextView.setText(
-                            "player 1 (\"X\") Scour: 0"+player1Scours
+                            "player 1 (\"X\") Scour: "+player1Scours
                     ));
                 }
                 else { // Player 2 wins.
                     player2Scours++;
                     runOnUiThread(() -> player2ScoursTextView.setText(
-                            "player 2 (\"O\") Scour: 0"+player2Scours
+                            "player 2 (\"O\") Scour: "+player2Scours
                     ));
                 }
                 return; // Exit after a win is found.
@@ -170,7 +170,7 @@ public class SecondActivity extends AppCompatActivity {
     private void restart(){
         // Reset the UI of all board buttons.
         for (Button button : board){
-            button.setBackgroundColor(Color.parseColor("#E4E3E3")); // Set to a default background color
+            button.setBackgroundColor(Color.parseColor("#F885C0C8")); // Set to a default background color
             button.setText(""); // Clear the 'X' or 'O' text
             button.setEnabled(true); // Re-enable the button
         }
@@ -216,6 +216,13 @@ public class SecondActivity extends AppCompatActivity {
         player1ScoursTextView = findViewById(R.id.player1ScourTextView);
         player2ScoursTextView = findViewById(R.id.player2ScourTextView);
 
+        runOnUiThread(() -> player1ScoursTextView.setText(
+                "player 1 (\"X\") Scour: "+player1Scours
+        ));
+        runOnUiThread(() -> player2ScoursTextView.setText(
+                "player 2 (\"O\") Scour: "+player2Scours
+        ));
+
         // Initialize the 'board' array by finding all 9 Button views from the layout.
         board = new Button[]{
                 findViewById(R.id.button00), findViewById(R.id.button01), findViewById(R.id.button02),
@@ -226,6 +233,7 @@ public class SecondActivity extends AppCompatActivity {
         // Set a click listener for each button on the board.
         for (Button button : board){
             button.setOnClickListener(v -> {onpress(v);});
+            button.setBackgroundColor(Color.parseColor("#F885C0C8"));
         }
 
         // Set a click listener for the "Restart" button.

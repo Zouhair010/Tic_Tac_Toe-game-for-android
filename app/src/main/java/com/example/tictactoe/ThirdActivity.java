@@ -14,35 +14,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
+import java.util.Random;
 
 /**
  * This activity manages the Tic-Tac-Toe game logic for a player against a computer opponent.
  */
-public class FirstActivity extends AppCompatActivity {
+public class ThirdActivity extends AppCompatActivity {
     // TextViews to display the scores for the player and the computer.
     TextView playerScoursTextView;
     TextView computerScoursTestView;
     // Array to hold the 9 Button objects that represent the board.
     private Button[] board;
     // A dynamic list of lists representing potential winning lines that are still available.
-    // This is used by the computer's AI and is reset in the restart() method.
-    private static ArrayList<ArrayList<Integer>> availableCases = new ArrayList<>()
-    {{
-        add(new ArrayList<>(Arrays.asList(0, 1, 2))); // Row 1
-        add(new ArrayList<>(Arrays.asList(3, 4, 5))); // Row 2
-        add(new ArrayList<>(Arrays.asList(6, 7, 8))); // Row 3
-        add(new ArrayList<>(Arrays.asList(0, 3, 6))); // Column 1
-        add(new ArrayList<>(Arrays.asList(1, 4, 7))); // Column 2
-        add(new ArrayList<>(Arrays.asList(2, 5, 8))); // Column 3
-        add(new ArrayList<>(Arrays.asList(0, 4, 8))); // Diagonal 1
-        add(new ArrayList<>(Arrays.asList(2, 4, 6))); // Diagonal 2
-    }};
-    // A list of all possible positions on the board (0-8). Used for checking for a draw.
-    final static ArrayList<Integer> allPositions = new ArrayList<>(){{
+    // This is used by the computer, is reset in the restart() method.
+    private static ArrayList<Integer> availableCases = new ArrayList<>(){{
         add(0);add(1);add(2);
         add(3);add(4);add(5);
         add(6);add(7);add(8);
@@ -51,17 +38,15 @@ public class FirstActivity extends AppCompatActivity {
     private static ArrayList<Integer> computeMoves = new ArrayList<>();
     // Stores the board indices (positions) occupied by the player ('X').
     private static ArrayList<Integer> playerMoves = new ArrayList<>();
-    // Stores all moves made by both the player and the computer to track game progress.
-    private static ArrayList<Integer> totalMoves = new ArrayList<>();
     // Flag to indicate if the game has ended (win or draw).
     private static boolean gameOver = false;
     // A static array of arrays defining all possible winning combinations by board index.
     final private static int[][] winCases = {
-            // Rows
+            // Winning combinations for rows.
             {0,1,2},{3,4,5},{6,7,8},
-            // Columns
+            // Winning combinations for columns.
             {0,3,6},{1,4,7},{2,5,8},
-            // Diagonals
+            // Winning combinations for diagonals.
             {0,4,8},{2,4,6}
     };
     // Constants for player and computer symbols.
@@ -81,7 +66,9 @@ public class FirstActivity extends AppCompatActivity {
      * @return true if the item is found, false otherwise.
      */
     private boolean in(ArrayList<Integer> arr, int item){
+        // Iterate through each element in the ArrayList.
         for (int i : arr) {
+            // If the current element matches the item, return true.
             if (i == item){
                 return true;
             }
@@ -97,13 +84,16 @@ public class FirstActivity extends AppCompatActivity {
      * @return true if all elements in arrList2 are present in arrList1, false otherwise.
      */
     private boolean in(ArrayList<Integer> arrList1, ArrayList<Integer> arrList2){
+        // Counter to track the number of elements from arrList2 found in arrList1.
         int counter = 0;
+        // Iterate through each element in the second list.
         for (int i : arrList2) {
+            // Use the single-item 'in' method to check for presence.
             if (in(arrList1,i)){
                 counter++;
             }
         }
-        // If the count of matching elements equals the size of arrList2, all elements are present.
+        // If the counter matches the size of the second list, it means all its elements were found.
         if(counter == arrList2.size()){
             return true;
         }
@@ -117,27 +107,15 @@ public class FirstActivity extends AppCompatActivity {
      * @param symbol The symbol ('X' or 'O') of the player whose win is being checked.
      */
     private void checkWiner(char symbol){
+        // Counter to track how many positions in a winning line are held by a player.
         int counter = 0;
-
-        // First, check for a draw condition (all positions are filled).
-        if (in(totalMoves,allPositions)){
-            // If it's a draw, set all buttons to blue and end the game.
-            for (Button button : board){
-                button.setBackgroundColor(Color.parseColor("#0000FF")); // Blue for Draw
-            }
-            // Set the game over flag and show a toast message.
-            gameOver = true;
-            Toast.makeText(this,"It's a draw!!",Toast.LENGTH_LONG).show();
-            return;
-        }
-
         // Check if the player ('X') has won.
         if (symbol=='X'){
             // Iterate through all possible winning cases.
             for (int[] cs : winCases) {
                 counter = 0;
                 // Count how many positions in the current winning line are held by the player.
-                for (int pos : cs) {
+                for (int pos : cs) { // 'pos' is an index on the board, e.g., 0, 1, 2...
                     if (in(playerMoves, pos)){
                         counter++;
                     }
@@ -159,6 +137,7 @@ public class FirstActivity extends AppCompatActivity {
                     runOnUiThread(() -> playerScoursTextView.setText(
                             "your Scour: "+playerScours
                     ));
+                    return; // Exit after a win is found.
                 }
             }
         }
@@ -168,7 +147,7 @@ public class FirstActivity extends AppCompatActivity {
             for (int[] cs : winCases) {
                 counter = 0;
                 // Count how many positions in the current winning line are held by the computer.
-                for (int pos : cs) {
+                for (int pos : cs) { // 'pos' is an index on the board.
                     if (in(computeMoves, pos)){
                         counter++;
                     }
@@ -190,8 +169,19 @@ public class FirstActivity extends AppCompatActivity {
                     runOnUiThread(() -> computerScoursTestView.setText(
                             "computer Scour: "+computerScours
                     ));
+                    return; // Exit after a win is found.
                 }
             }
+        }
+        // First, check for a draw condition (all positions are filled).
+        if (availableCases.size()==0){
+            // If it's a draw, set all buttons to blue and end the game.
+            for (Button button : board){
+                button.setBackgroundColor(Color.parseColor("#0000FF")); // Blue for Draw
+            }
+            // Set the game over flag and show a toast message.
+            gameOver = true;
+            Toast.makeText(this,"It's a draw!!",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -203,11 +193,13 @@ public class FirstActivity extends AppCompatActivity {
      */
     private void move(Button button, String symbol){
         // Change button color and switch the turn.
+        // If it was the player's turn, change color for player move and set turn to computer.
         if (turn.equals(playerSymbol)){
             button.setBackgroundColor(Color.parseColor("#F26CE6"));
             turn = computerSymbol;
         }
         else {
+            // If it was the computer's turn, change color for computer move and set turn to player.
             button.setBackgroundColor(Color.parseColor("#4676FB"));
             turn = playerSymbol;
         }
@@ -222,11 +214,13 @@ public class FirstActivity extends AppCompatActivity {
      * @return The integer index (0-8) or -1 if not found.
      */
     private int getIndex(Button button){
+        // Loop through the board array to find the matching button.
         for (int i=0 ; i<board.length ; i++) {
             if (board[i] == button){
                 return i;
             }
         }
+        // Return -1 if the button is not found (should not happen in normal gameplay).
         return -1;
     }
 
@@ -235,74 +229,34 @@ public class FirstActivity extends AppCompatActivity {
      * @param button The Button clicked by the player.
      */
     private void playerMove(Button button){
+        // Get the index of the clicked button.
         int choice = getIndex(button);
-
+        // Add the move to the player's list of moves.
         playerMoves.add(choice);
-        totalMoves.add(choice);
-
-        // Update the AI's list of available winning paths by removing the player's move.
-        for (ArrayList<Integer> cs : availableCases) {
-            if(in(cs,choice)){
-                cs.remove(Integer.valueOf(choice));
-            }
-        }
+        // Remove the chosen position from the list of available cases.
+        availableCases.remove(Integer.valueOf(choice));
+        // Update the button's appearance and state.
         move(button, "X");
+        // Check if this move resulted in a win for the player.
         checkWiner('X'); // Check if the player won.
     }
 
     /**
-     * Handles the computer's turn with basic AI logic.
+     * Handles the computer's turn by making a random move from the available spots.
      */
     private void computerMove(){
-        // Do not make a move if the game is already over.
-        if (gameOver){return;}
-        int maxLigth = 3;
-        Integer computeChoice = null;
-
-        // AI Logic Part 1: Find a move in the shortest available winning path to block or advance.
-        for (ArrayList<Integer> cs : availableCases) {
-            if(0 < cs.size() && cs.size() <= maxLigth){
-                for (int i : cs){
-                    // Check that the spot is not already taken by the computer.
-                    if ( !in(computeMoves, i) ){
-                        maxLigth=cs.size(); // Update maxLigth to prioritize shorter paths
-                        computeChoice=i;
-                    }
-                }
-            }
-        }
-
-        // AI Logic Part 2: Check if the computer can win in this turn (highest priority).
-        for (int[] cs : winCases) {
-            int counter=0;
-            for (int i : cs) {
-                if (in(computeMoves,i)){
-                    counter++; // Count computer's marks in this winning line.
-                }
-            }
-            // If two spots in a winning line are taken by the computer, take the third one if it's free.
-            if (counter==2){
-                for (int it : cs) {
-                    // Check if the third spot is not taken by either player.
-                    if(!in(computeMoves,it) && !in(playerMoves,it)){
-                        computeChoice=it; // This move guarantees a win.
-                        break; // Found a winning move, break inner loop.
-                    }
-                }
-            }
-        }
-
-        // AI Logic Part 3: Prioritize taking the center square if available (a good strategic move).
-        if (!in(playerMoves,4) && !in(computeMoves,4)){
-            computeChoice = 4; // Center square index.
-        }
-
-        // Execute the chosen move if a valid choice was found.
-        // Needs a null check for computeChoice in case no valid move was found (shouldn't happen in a non-full board)
-        if (computeChoice != null) {
-            computeMoves.add(computeChoice);
-            totalMoves.add(computeChoice);
-            move(board[computeChoice], "O");
+        // Only proceed if the game is not over.
+        if (!gameOver) {
+            Random random = new Random();
+            // Pick a random index from the list of available board positions.
+            int computeChoice = random.nextInt(availableCases.size());
+            // Add the chosen board position to the computer's moves.
+            computeMoves.add(availableCases.get(computeChoice));
+            // Update the UI for the chosen button.
+            move(board[availableCases.get(computeChoice)], "O");
+            // Remove the position from available cases.
+            availableCases.remove(computeChoice);
+            // Check if the computer won with this move.
             checkWiner('O'); // Check if the computer won.
         }
     }
@@ -318,24 +272,15 @@ public class FirstActivity extends AppCompatActivity {
             button.setEnabled(true); // Re-enable the button
         }
 
-        // Reset the availableCases list to its initial state (all 8 winning combinations).
-        availableCases = new ArrayList<>()
-        {{
-            add(new ArrayList<>(Arrays.asList(0, 1, 2)));
-            add(new ArrayList<>(Arrays.asList(3, 4, 5)));
-            add(new ArrayList<>(Arrays.asList(6, 7, 8)));
-            add(new ArrayList<>(Arrays.asList(0, 3, 6)));
-            add(new ArrayList<>(Arrays.asList(1, 4, 7)));
-            add(new ArrayList<>(Arrays.asList(2, 5, 8)));
-            add(new ArrayList<>(Arrays.asList(0, 4, 8)));
-            add(new ArrayList<>(Arrays.asList(2, 4, 6)));
+        // Reset the availableCases list to its initial state (all 9 board positions).
+        availableCases = new ArrayList<>(){{
+            add(0);add(1);add(2);
+            add(3);add(4);add(5);
+            add(6);add(7);add(8);
         }};
-
         // Clear all move tracking lists.
         computeMoves = new ArrayList<>();
         playerMoves = new ArrayList<>();
-        totalMoves = new ArrayList<>();
-
         // Reset the game over flag.
         gameOver = false;
     }
@@ -349,8 +294,8 @@ public class FirstActivity extends AppCompatActivity {
         Button button = (Button) v;
         // Pass the clicked button to the player move logic.
         playerMove(button);
-        // Immediately trigger the computer's turn.
-        computerMove();
+        // After the player's move, the computer makes its move.
+        computerMove(); // Immediately trigger the computer's turn.
     }
 
     // --- Android Lifecycle Methods ---
@@ -360,18 +305,18 @@ public class FirstActivity extends AppCompatActivity {
         // Enable edge-to-edge display.
         EdgeToEdge.enable(this);
         // Set the content view to the main layout XML file.
-        setContentView(R.layout.first_activity);
+        setContentView(R.layout.third_activity);
 
         // Handle system bar insets to adjust padding for the main view.
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.first), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.third), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
         // Initialize TextViews for displaying scores.
-        playerScoursTextView = findViewById(R.id.playerScourTextView);
-        computerScoursTestView = findViewById(R.id.computerScourTextView);
+        playerScoursTextView = findViewById(R.id.playerScourTextView2);
+        computerScoursTestView = findViewById(R.id.computerScourTextView2);
 
         runOnUiThread(() -> playerScoursTextView.setText(
                 "your Scour: "+playerScours
@@ -382,9 +327,9 @@ public class FirstActivity extends AppCompatActivity {
 
         // Initialize the 'board' array by finding all 9 Button views from the layout.
         board = new Button[]{
-                findViewById(R.id.button0), findViewById(R.id.button1), findViewById(R.id.button2),
-                findViewById(R.id.button3), findViewById(R.id.button4), findViewById(R.id.button5),
-                findViewById(R.id.button6), findViewById(R.id.button7), findViewById(R.id.button8)
+                findViewById(R.id.button000), findViewById(R.id.button001), findViewById(R.id.button002),
+                findViewById(R.id.button003), findViewById(R.id.button004), findViewById(R.id.button005),
+                findViewById(R.id.button006), findViewById(R.id.button007), findViewById(R.id.button008)
         };
 
         for (Button button : board){
@@ -392,13 +337,13 @@ public class FirstActivity extends AppCompatActivity {
         }
 
         // Set up OnClickListener for the restart button.
-        findViewById(R.id.restarBtn).setOnClickListener(v-> {restart();});
+        findViewById(R.id.restarBtn3).setOnClickListener(v-> {restart();});
 
         // Set up OnClickListener for the back button.
-        findViewById(R.id.backBtn).setOnClickListener(v -> {
+        findViewById(R.id.backBtn3).setOnClickListener(v -> { // Lambda for click listener.
             // Restart the game state before navigating back to the main menu.
             restart();
-            Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+            Intent intent = new Intent(ThirdActivity.this, MainActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             finish();

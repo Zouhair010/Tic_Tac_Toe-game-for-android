@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Set a click listener for the "Player vs Computer" button.
-        findViewById(R.id.vsComputeBtn).setOnClickListener(v -> {
+        findViewById(R.id.vsComputeEasyLevelBtn).setOnClickListener(v -> {
             // Create an Intent to start the FirstActivity (Player vs Computer game).
             Intent intent = new Intent(MainActivity.this, FirstActivity.class);
             startActivity(intent);
@@ -46,9 +46,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Set a click listener for the "Player vs Player" button.
-        findViewById(R.id.vsPlayerBtn).setOnClickListener(v -> {
+        findViewById(R.id.playerVsPlayerModeBtn).setOnClickListener(v -> {
             // Create an Intent to start the SecondActivity (Player vs Player game).
             Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            startActivity(intent);
+            // Apply a slide animation for the activity transition.
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            // Finish the current MainActivity.
+            finish();
+        });
+
+        findViewById(R.id.vsComputeHardLevelBtn).setOnClickListener(v -> {
+            // Create an Intent to start the SecondActivity (Player vs Player game).
+            Intent intent = new Intent(MainActivity.this, ThirdActivity.class);
             startActivity(intent);
             // Apply a slide animation for the activity transition.
             overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
